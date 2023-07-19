@@ -1,7 +1,8 @@
 # CHANGELOG
 
-## v0.0.1
+## v0.3.2
 
-- initial commit
-- add documentation
-- add tests
+- implement sliceRemover
+- implement string suite ...
+- update codesystem
+- improve doc

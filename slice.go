@@ -1,6 +1,21 @@
 // Package types provides some useful functions for working with native types in Go
 package types
 
+// SliceRemover removes many element(s) from a slice
+// Return a new slice without the element(s)
+func SliceRemover[T comparable](s []T, x ...T) []T {
+	for _, v := range x {
+		idx, found := SliceFinder(s, v)
+		if !found {
+			continue
+		}
+
+		s = append(s[:idx], s[idx+1:]...)
+	}
+
+	return s
+}
+
 // SliceDuplicateRemover removes duplicated elements from a slice
 // Return a new slice without duplicated elements
 func SliceDuplicateRemover[T comparable](s []T) []T {
@@ -18,13 +33,14 @@ func SliceDuplicateRemover[T comparable](s []T) []T {
 }
 
 // SliceFinder search for an element in a slice
-// Return true if found, false otherwise
-func SliceFinder[T comparable](s []T, x T) bool {
-	for _, v := range s {
+// If found, return the index and true.
+// Return false otherwise
+func SliceFinder[T comparable](s []T, x T) (int, bool) {
+	for index, v := range s {
 		if v == x {
-			return true
+			return index, true
 		}
 	}
 
-	return false
+	return -1, false
 }
